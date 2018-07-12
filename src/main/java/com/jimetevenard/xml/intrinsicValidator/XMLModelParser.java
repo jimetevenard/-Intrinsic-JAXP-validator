@@ -1,5 +1,6 @@
 package com.jimetevenard.xml.intrinsicValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class XMLModelParser {
 	private static final String GROUP = "group";
 	private static final String PHASE = "phase";
 	
-	private List<XMLModelDeclaration> parsedDeclarations;
+	private List<XMLModelDeclaration> parsedDeclarations = new ArrayList<XMLModelDeclaration>();
 	
 	public void addAndParsePI(String piData){
 		Map<String, String> piValuesMap = ProcessingInstructionParser.parseData(piData);

@@ -15,6 +15,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import com.jimetevenard.xml.intrinsicValidator.utils.DebugTracer;
 import com.jimetevenard.xml.intrinsicValidator.utils.DraconianErrorHandler;
 
 public class IntrinsicValidator extends Validator {
@@ -44,15 +45,18 @@ public class IntrinsicValidator extends Validator {
 			SAXParser parser = factory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
 			
+			/*
+			 * This Handler will lookup and parse
+			 * the <?xml-model PIs
+			 */
 			SchemaDeclarationHandler declarationsHandler = new SchemaDeclarationHandler();
-			
-			
+						
 			reader.setErrorHandler(DraconianErrorHandler.INSTANCE);
 			reader.setContentHandler(declarationsHandler);
 			
 			reader.parse(new InputSource(source.getSystemId())); // TODO really ?
 			
-			
+			DebugTracer.traceDeclarations(declarationsHandler.getXmlModelDeclarations());
 			
 		} catch (ParserConfigurationException e) {
 			throw new SAXException(e);
