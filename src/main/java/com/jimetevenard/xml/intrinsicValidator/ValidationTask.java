@@ -4,22 +4,16 @@ import javax.xml.transform.Source;
 
 public class ValidationTask {
 	
-	private static final String TYPE_DTD = "application/xml-dtd";
-	private static final String TYPE_RNC = "application/relax-ng-compact-syntax";
-	static public final String RELAXNG_COMPACT_URI
-    	= "http://www.iana.org/assignments/media-types/application/relax-ng-compact-syntax";
-			
+	
 	
 	private String schemaLanguageURI;
 	
 	private Source schema;
-	
-	private ValidationTask(){
-		
-	}
 
-	public static ValidationTask of(XMLModelDeclaration declaration){
-		throw new RuntimeException("TODO"); // TODO
+	protected ValidationTask(String schemaLanguageURI, Source schema) {
+		super();
+		this.schemaLanguageURI = schemaLanguageURI;
+		this.schema = schema;
 	}
 
 	public String getSchemaLanguageURI() {
@@ -29,6 +23,15 @@ public class ValidationTask {
 	public Source getSchema() {
 		return schema;
 	}
+
+	@Override
+	public String toString() {
+		return "ValidationTask [schemaLanguageURI=" + schemaLanguageURI + ", schema(Source) systemID=" + schema.getSystemId() + "]";
+	}
+	
+	
+	
+	
 	
 	
 
