@@ -19,7 +19,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-import com.jimetevenard.xml.intrinsicValidator.utils.DebugTracer;
 import com.jimetevenard.xml.intrinsicValidator.utils.DraconianErrorHandler;
 
 public class IntrinsicValidator extends Validator {
@@ -74,7 +73,6 @@ public class IntrinsicValidator extends Validator {
 			
 			performValidations(validations,source);
 			
-			DebugTracer.traceIterable(validations, "Validation Tasks");
 			
 		} catch (ParserConfigurationException e) {
 			throw new SAXException(e);
