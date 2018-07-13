@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jimetevenard.xml</groupId>
 	<artifactId>intrinsic-jaxp-validator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	
-	<name>TODO</name>
+	<name>Intrinsic JAXP Validator</name>
 
-	<description>TODO</description>
-	<url>TODO</url>
+	<description>Validate XML document against their own grammar declaration</description>
+	<url>https://github.com/jimetevenard/Intrinsic-JAXP-validator</url>
 	<developers>
 		<developer>
 			<id>jimetevenard</id>
@@ -33,7 +33,10 @@
 	</licenses>
 	
 	<scm>
-		<!-- TODO -->
+		<connection>scm:git:https://github.com/jimetevenard/Intrinsic-JAXP-validator.git</connection>
+		<developerConnection>scm:git:https://github.com/jimetevenard/Intrinsic-JAXP-validator.git</developerConnection>
+		<url>scm:git:https://github.com/jimetevenard/Intrinsic-JAXP-validator.git</url>
+		<tag>HEAD</tag>
 	</scm>
 
 
@@ -52,4 +55,63 @@
 		</dependency>
 
 	</dependencies>
+    
+    <profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
