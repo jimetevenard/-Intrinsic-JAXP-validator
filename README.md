@@ -24,6 +24,8 @@ is not supported for several reasons<sup>(1)</sup> (cf. below).
 This Maven artifact can be added as a dependency for any JAXP-compliant<sup>(2)</sup>
 validator, such as the [XML Maven Plugin](https://www.mojohaus.org/xml-maven-plugin/).
 
+You can find a example here : <https://github.com/labo-jim/intrinsic-validator-test-project>
+
 ## What's under the hood
 
 * The *Intrinsic JAXP Validator* will launch a SAX parsing of the document being
