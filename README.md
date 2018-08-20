@@ -5,26 +5,34 @@ to validate XML documents against their own declared grammars.
 
 ## How to use it
 
-### In your Java application
-
-Instanciate a 
-[`SchemaFactory`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/SchemaFactory.html) from it's
-[`newInstance`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/SchemaFactory.html#newInstance(java.lang.String)) method,
- with `http://componentcorp.com/xml/ns/xml-model/1.0` as shema Language URI Argument.
-
-You can then obtain a [`Schema`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/Schema.html)
-from witch you can get a [`Validator`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/Validator.html)
-and then call the [`validate()`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/Validator.html#validate(javax.xml.transform.Source)) method.
-
-The instanciation of a SAX [`ValidatorHandler`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/ValidatorHandler.html)
-is not supported for several reasons<sup>(1)</sup> (cf. below).
-
 ### Just as a Maven Dependency
 
 This Maven artifact can be added as a dependency for any JAXP-compliant<sup>(2)</sup>
 validator, such as the [XML Maven Plugin](https://www.mojohaus.org/xml-maven-plugin/).
 
 You can find a example here : <https://github.com/labo-jim/intrinsic-validator-test-project>
+
+### In your Java application
+
+````
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+````
+
+````
+final String schemaLanguage = "http://componentcorp.com/xml/ns/xml-model/1.0";
+SchemaFactory intrinsicSchemaFactory = SchemaFactory.newInstance(schemaLanguage);
+
+Schema schema = intrinsicSchemaFactory.newSchema();	
+Validator validator = schema.newValidator();
+
+Source yourXML = Your XML...
+validator.validate(yourXML);
+````
+
+The instanciation of a SAX [`ValidatorHandler`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/ValidatorHandler.html)
+is not supported for several reasons<sup>(1)</sup> (cf. below).
 
 ## What's under the hood
 
@@ -53,8 +61,8 @@ implementation of each schema type you use in your classpath.<sup>(3)</sup>
 1. **Why not supporting the SAX validation** (i.e. with a [`ValidatorHandler`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/ValidatorHandler.html))
     * Because the goal of this helper is to validate XML documents against various
     Schema type, including the *unusual suspects*, i.e. Schematron and NVDL, for witch
-    no (real) SAX implementation is possible.
-    * Since he who can do more can do less, validators that implements the
+    no SAX implementation is available.
+    * Since who can do more can do less, validators that implements the
   [`ValidatorHandler`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/ValidatorHandler.html)
   also implements the [`Validator`](https://docs.oracle.com/javase/7/docs/api/javax/xml/validation/Validator.html)
 2. JAXP stands for *JAva XML Processing* API.  
